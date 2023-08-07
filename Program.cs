@@ -1,14 +1,22 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using SalesWebMvc.Data;
+using SalesWebMvc.Models;
+
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<DepartmentContext>(options =>
-    options.UseMySql("server=localhost;initial catalog=SalesWebMvc;uid=root;pwd=10812023", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.34-mysql")));
+builder.Services.AddDbContext<SalesWebMvcContext>(options =>
+    options.UseMySql(builder.Configuration.GetConnectionString("SalesWebMvcContext"), Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.34-mysql")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddScoped<SeedingService>(); //Add to the Service an application dependency injection
+
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    SeedingService.Initialize(services);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

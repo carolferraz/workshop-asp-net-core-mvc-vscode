@@ -1,15 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using SalesWebMvc.Models.Enums;
 using Microsoft.EntityFrameworkCore;
-using SalesWebMvc.Models;
 
-namespace SalesWebMvc.Data
+namespace SalesWebMvc.Models
 {
-    public class DepartmentContext : DbContext
+    public class SalesWebMvcContext : DbContext
     {
-        public DepartmentContext (DbContextOptions<DepartmentContext> options)
+        public SalesWebMvcContext(DbContextOptions<SalesWebMvcContext> options)
             : base(options)
         {
         }
