@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SalesWebMvc.Models;
+using SalesWebMvc.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<SalesWebMvcContext>(options =>
@@ -8,7 +9,9 @@ builder.Services.AddDbContext<SalesWebMvcContext>(options =>
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<SeedingService>(); //Add to the Service an application dependency injection
+//Add to the Service an application dependency injection
+builder.Services.AddScoped<SeedingService>(); 
+builder.Services.AddScoped<SellerService>(); 
 
 var app = builder.Build();
 
